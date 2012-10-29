@@ -41,6 +41,7 @@ Header files for XCB library.
 %{__automake}
 %{__autoconf}
 %configure \
+	--disable-silent-rules	\
 	--disable-static
 %{__make}
 
