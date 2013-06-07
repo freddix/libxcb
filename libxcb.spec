@@ -1,11 +1,11 @@
 Summary:	X protocol C-language Binding library
 Name:		libxcb
-Version:	1.9
+Version:	1.9.1
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	d92657d958dfd222a12f4e936a7a26c8
+# Source0-md5:	324c76024a73dba8a902638696ba87de
 URL:		http://xcb.freedesktop.org/
 BuildRequires:	check-devel
 BuildRequires:	libpthread-stubs
