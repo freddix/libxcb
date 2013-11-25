@@ -1,11 +1,11 @@
 Summary:	X protocol C-language Binding library
 Name:		libxcb
-Version:	1.9.1
+Version:	1.9.3
 Release:	1
 License:	MIT
 Group:		Libraries
 Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	324c76024a73dba8a902638696ba87de
+# Source0-md5:	24eedd0a007c1de1c2de882ed074edc1
 URL:		http://xcb.freedesktop.org/
 BuildRequires:	check-devel
 BuildRequires:	libpthread-stubs
@@ -13,7 +13,7 @@ BuildRequires:	libxslt-progs
 BuildRequires:	pkg-config
 BuildRequires:	xorg-libXau-devel
 BuildRequires:	xorg-libXdmcp-devel
-BuildRequires:	xorg-proto >= 7.7-2
+BuildRequires:	pkgconfig(xcb-proto) >= 1.9
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -27,7 +27,7 @@ Summary:	Header files for XCB library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 Requires:	libpthread-stubs
-Requires:	xorg-proto
+Requires:	pkgconfig(xcb-proto) >= 1.9
 
 %description devel
 Header files for XCB library.
@@ -51,7 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf $RPM_BUILD_ROOT%{_docdir}/libxcb
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/libxcb
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/*.la
+
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -72,8 +74,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc doc/tutorial
 %attr(755,root,root) %{_libdir}/libxcb-*.so
 %attr(755,root,root) %{_libdir}/libxcb.so
-%{_libdir}/libxcb-*.la
-%{_libdir}/libxcb.la
 %{_includedir}/xcb
 %{_pkgconfigdir}/xcb-*.pc
 %{_pkgconfigdir}/xcb.pc
