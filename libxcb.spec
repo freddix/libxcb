@@ -1,16 +1,15 @@
-%define		xcb_proto	1.10
+%define		xcb_proto	1.11
 
 Summary:	X protocol C-language Binding library
 Name:		libxcb
-Version:	1.10
+Version:	1.11
 Release:	2
 License:	MIT
 Group:		Libraries
 Source0:	http://xcb.freedesktop.org/dist/%{name}-%{version}.tar.gz
-# Source0-md5:	a484793fbfb974b09d54fa1ebf44b2e4
+# Source0-md5:	1698dd837d7e6e94d029dbe8b3a82deb
 URL:		http://xcb.freedesktop.org/
 BuildRequires:	check-devel
-BuildRequires:	libpthread-stubs
 BuildRequires:	libxslt-progs
 BuildRequires:	pkg-config
 BuildRequires:	pkgconfig(dri3proto)
@@ -29,7 +28,6 @@ to replace the current Xlib interface.
 Summary:	Header files for XCB library
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libpthread-stubs
 Requires:	pkgconfig(xcb-proto) >= %{xcb_proto}
 
 %description devel
@@ -37,6 +35,7 @@ Header files for XCB library.
 
 %prep
 %setup -q
+%{__sed} -i -e "s|pthread-stubs ||" configure.ac
 
 %build
 %{__libtoolize}
@@ -45,7 +44,8 @@ Header files for XCB library.
 %{__autoconf}
 %configure \
 	--disable-silent-rules	\
-	--disable-static
+	--disable-static	\
+	--enable-xinput
 %{__make}
 
 %install
